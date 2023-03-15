@@ -2,7 +2,7 @@
 resource "aws_security_group" "webserver_sg" {
   name        = "allow_web_traffic"
   description = "Allow Web inbound traffic"
-  vpc_id      = var.vpc_id
+  vpc_id      = var.webserver_vpc_id
 
   ingress {
     description = "HTTPS"
@@ -41,7 +41,7 @@ resource "aws_security_group" "webserver_sg" {
 # 2. Create a network interface with an ip in the subnet that was created in step 4
 
 resource "aws_network_interface" "webserver_nic" {
-  subnet_id       = var.subnet_id
+  subnet_id       = var.webserver_subnet_id
   private_ips     = [var.private_ip_id]
   security_groups = [aws_security_group.webserver_sg.id]
 }
@@ -58,7 +58,6 @@ resource "aws_eip" "webserver-eip" {
 resource "aws_instance" "webServer_instance" {
   ami               = var.webserver_ami
   instance_type     = var.webserver_intanceType
-  subnet_id         = var.subnet_id
   key_name          = var.pem_key
   availability_zone = var.instance_az
 
@@ -66,15 +65,6 @@ resource "aws_instance" "webServer_instance" {
     device_index         = 0
     network_interface_id = aws_network_interface.webserver_nic.id
   }
-
-  user_data = <<-EOF
-                  #!/bin/bash
-                    sudo apt update -y
-                    sudo apt install apache2 -y
-                    sudo systemctl start apache2
-                    sudo bash -c 'echo your very first web server > /var/www/html/index.html'
-                  EOF
-
   tags = {
     Name = "WebServer"
   }

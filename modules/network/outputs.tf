@@ -1,9 +1,9 @@
 output "subnet_output" {
-  value = aws_subnet.web_server_subnet.id
+  value = aws_subnet.web_server_subnet
 }
 
 output "vpc_output" {
-  value = aws_vpc.web_server_vpc.id
+  value = aws_vpc.web_server_vpc
 }
 
 output "igw_output" {

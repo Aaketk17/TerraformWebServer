@@ -8,11 +8,11 @@ variable "webserver_intanceType" {
   default = "t2.micro"
 }
 
-variable "vpc_id" {
+variable "webserver_vpc_id" {
   type = string
 }
 
-variable "subnet_id" {
+variable "webserver_subnet_id" {
   type = string
 }
 
