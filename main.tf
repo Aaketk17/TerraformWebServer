@@ -1,4 +1,5 @@
-provider "aws" {
-  region = "us-east-2"
-  profile = "default"
+module "provider_module" {
+  source = "./modules/provider"
+  aws_profile = "default"
+  aws_region = "us-east-2"
 }
