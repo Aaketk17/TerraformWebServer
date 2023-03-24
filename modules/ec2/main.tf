@@ -48,12 +48,12 @@ resource "aws_network_interface" "webserver_nic" {
 
 # 3. Assign an elastic IP to the network interface created in step 2
 
-resource "aws_eip" "webserver-eip" {
-  vpc                       = true
-  network_interface         = aws_network_interface.webserver_nic.id
-  associate_with_private_ip = var.private_ip_id
-  depends_on                = [var.igw_res]
-}
+# resource "aws_eip" "webserver-eip" {
+#   vpc                       = true
+#   network_interface         = aws_network_interface.webserver_nic.id
+#   associate_with_private_ip = var.private_ip_id
+#   depends_on                = [var.igw_res]
+# }
 
 resource "aws_instance" "webServer_instance" {
   ami               = var.webserver_ami

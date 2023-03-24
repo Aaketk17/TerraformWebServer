@@ -1,3 +1,6 @@
+terraform {
+  backend "s3" {}
+}
 module "provider_module" {
   source      = "./modules/provider"
   aws_profile = "default"
